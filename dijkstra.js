@@ -9,12 +9,13 @@ var CHEAPEST = true;
 
 function Dijkstra() {
 
-    this.run = function(deals, source, dest) {
+    this.run = function(deals, sortingType, source, dest) {
 
-        var adjacencyMatrix = this.createAdjacencyMatrix(deals);
+        // Create adjacency matrix of all vertices (cities)
+        var adjacencyMatrix = this.createAdjacencyMatrix(deals, sortingType);
 
         // Find shortest path
-        return $dijkstra.findShortestPath(adjacencyMatrix, source, dest);
+        return this.findShortestPath(adjacencyMatrix, source, dest);
     };
 
     this.findShortestPath = function(graph, source, dest) {
@@ -48,20 +49,15 @@ function Dijkstra() {
 
                 console.log('dat v of u: ' + v + ' of ' + u);
 
-                var minTransport = findMinTransportType(graph[u][v]);
-                console.log('we da best: ');
-                console.log(minTransport);
-
-                var alt = dist[u] + minTransport.length;
+                var alt = dist[u] + graph[u][v].weight;
 
                 if (alt < dist[v]) {
                     dist[v] = alt;
                     prev[v] = u;
-                    referenceDealMap[u+v] = graph[u][v][minTransport.transport].referenceDeal;
+                    referenceDealMap[u+v] = graph[u][v].referenceDeal;
 
                     unvisitedQueue.updatePriority(v, alt);
                 }
-
             }
 
             console.log('dat u: ' + u);
@@ -70,31 +66,7 @@ function Dijkstra() {
         return {dist:dist, prev:prev, referenceDealMap:referenceDealMap};
     };
 
-    function findMinTransportType(trip) {
-        var minTransportType;
-        var minLength = Infinity;
-
-        for (var transport in trip) {
-            console.log('dat transport: ' + transport);
-
-            var e = trip[transport];
-
-            var length;
-            if (CHEAPEST)
-                length = e.lengthCost;
-            else
-                length = e.lengthTime;
-
-            if (length < minLength) {
-                minTransportType = transport;
-                minLength = length;
-            }
-        }
-
-        return {transport:minTransportType, length:minLength};
-    }
-
-    this.createAdjacencyMatrix = function(dataList) {
+    this.createAdjacencyMatrix = function(dataList, sortingType) {
 
         var matrix = []; // this will be a 3D array to store adjacencies
 
@@ -102,11 +74,19 @@ function Dijkstra() {
             var node = dataList[i];
 
             var from = node.departure;
-            //var to = node.arrival + '|' + node.transport;
             var to = node.arrival;
             var transport = node.transport;
-            var lengthCost = node.cost * (1 - (node.discount *.01)); // using cost as weight
-            var lengthTime = parseInt(node.duration.h + node.duration.m); // using cost as weight
+
+            var cost = node.cost * (1 - (node.discount *.01)); // using cost as weight
+            var time = parseInt(node.duration.h + node.duration.m); // using cost as weight
+            var weight;
+            if (sortingType == 'CHEAPEST')
+                weight = cost;
+            else if (sortingType == 'FASTEST')
+                weight = time;
+            else
+                throw 'Incorrect sortingType value: ' + sortingType;
+
             var referenceDeal = node.reference;
 
             //console.log('from: ' + from + ', to: ' + to + ', weight: ' + weight);
@@ -114,10 +94,8 @@ function Dijkstra() {
             if (!matrix[from])
                 matrix[from] = [];
 
-            if (!matrix[from][to])
-                matrix[from][to] = [];
-
-            matrix[from][to][transport] = {lengthCost:lengthCost, lengthTime:lengthTime, referenceDeal:referenceDeal};
+            if (!matrix[from][to] || weight < matrix[from][to].weight)
+                matrix[from][to] = {weight:weight, referenceDeal: referenceDeal};
         }
 
         return matrix;
