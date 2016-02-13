@@ -47,7 +47,7 @@ console.log(q.getQueue());
 
 function MinPriorityQueue() {
     var queue = [];
-    var indexHashmap = [];
+    var indexHashmap = []; // a hashmap that maps id -> index in queue
 
     this.add = function(id, value) {
         queue.push({id:id, value:value});
@@ -59,12 +59,12 @@ function MinPriorityQueue() {
     };
 
     this.extractMin = function() {
-
         var root = queue[0];
-        var lastElement = queue[queue.length - 1];
         indexHashmap[root.id] = undefined;
-        queue[0] = lastElement;
+        var lastElement = queue[queue.length - 1];
         indexHashmap[lastElement.id] = 0;
+
+        queue[0] = lastElement;
         queue.pop();
 
         var index = 0;
@@ -86,12 +86,11 @@ function MinPriorityQueue() {
             sortDownwards(index);
     };
 
+    /* Getters */
     this.getQueue = function() { return queue; };
     this.getIndexHashmap = function() { return indexHashmap; };
     this.isEmpty = function() { return queue.length == 0; };
-    this.inQueue = function(id) {
-        return indexHashmap[id] != undefined;
-    };
+    this.inQueue = function(id) { return indexHashmap[id] != undefined; };
 
     /* Recursive function */
     function sortDownwards(index) {
@@ -109,7 +108,7 @@ function MinPriorityQueue() {
             smallestChildIndex = queue[leftChildIndex].value < queue[rightChildIndex].value ? leftChildIndex : rightChildIndex;
 
         if (queue[smallestChildIndex].value < queue[index].value) {
-            // Perform swap
+            // Swap elements
             swap(index, smallestChildIndex);
 
             sortDownwards(smallestChildIndex);
@@ -125,18 +124,20 @@ function MinPriorityQueue() {
         var parent = Math.floor((index - 1) / 2);
 
         if (queue[index].value < queue[parent].value) {
-            // Perform swap
+            // Swap elements
             swap(parent, index);
 
             sortUpwards(parent);
         }
     }
 
+    /* This swaps queue elements i, j and updates their indices in indexHashmap */
     function swap(i, j) {
         // Update indexHashmap
         indexHashmap[queue[i].id] = j;
         indexHashmap[queue[j].id] = i;
 
+        // Swap elements in queue
         var temp = queue[i];
         queue[i] = queue[j];
         queue[j] = temp;
