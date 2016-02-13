@@ -4,9 +4,6 @@
 
 $dijkstra = new Dijkstra();
 
-// TODO: change this to use whatever the user selects
-var CHEAPEST = true;
-
 function Dijkstra() {
 
     this.run = function(deals, sortingType, source, dest) {
