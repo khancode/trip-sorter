@@ -40,14 +40,14 @@
 
                     <div id="fromCityContainer" style="width:30%; float:left">
                         <div id="fromCityLabelContainer"><label class="control-label" for="fromCity">From</label></div>
-                        <select id="fromCity" class="form-control" style="width:90%">
+                        <select ng-model="fromCity" id="fromCity" class="form-control" style="width:90%">
                             <option ng-repeat="city in cities">{{city}}</option>
                         </select>
                     </div>
 
                     <div id="toCityContainer" style="width:30%; float:left">
                         <div id="toCityLabelContainer"><label class="control-label" for="toCity">To</label></div>
-                        <select id="toCity" class="form-control" style="width:90%">
+                        <select ng-model="toCity" id="toCity" class="form-control" style="width:90%">
                             <option ng-repeat="city in cities">{{city}}</option>
                         </select>
                     </div>
@@ -64,13 +64,13 @@
 
                     <div id="searchButtonContainer" style="width:20%; float:left">
                         <div id="spaceFiller">&nbsp;</div>
-                        <button class="btn btn-success" style="width:100%"><span class="glyphicon glyphicon-search"></span>Search</button>
+                        <button ng-click="submitForm()" class="btn btn-success" style="width:100%"><span class="glyphicon glyphicon-search"></span>Search</button>
                     </div>
 
                 </div>
 
                 <div class="panel-footer" style="background:white">
-                    <p>Display trips here</p>
+                    <p ng-repeat="trip in trips">{{trip.departure}} -> {{trip.arrival}}</p>
                 </div>
 
             </div>
