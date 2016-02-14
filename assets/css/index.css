@@ -1,7 +1,8 @@
 #formContainer {
     padding: 5%;
     width: 50%;
-    float: left;
+    margin: 0 auto;
+    /*float: left;*/
 }
 
 /*.form-group {*/

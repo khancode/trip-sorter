@@ -27,8 +27,8 @@
 
         <div id="formContainer">
             <div class = "panel panel-primary componentContainer">
-                <div class = "panel-heading">
-                    <h3 class = "panel-title">TripSorter</h3>
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="padding:0">TripSorter</h3>
                 </div>
 
                 <div class = "panel-body">
@@ -38,28 +38,41 @@
                         <!--<label ng-show="false" class="control-label" for="new_className"><i>Please enter class name</i></label>-->
                     <!--</div>-->
 
-                    <div id="fromCityContainer" style="width:50%; float:left">
+                    <div id="fromCityContainer" style="width:30%; float:left">
                         <div id="fromCityLabelContainer"><label class="control-label" for="fromCity">From</label></div>
-                        <select id="fromCity" class="form-control" style="width:75%">
+                        <select id="fromCity" class="form-control" style="width:90%">
                             <option ng-repeat="city in cities">{{city}}</option>
                         </select>
                     </div>
 
-                    <div id="toCityContainer" style="width:50%; float:left">
+                    <div id="toCityContainer" style="width:30%; float:left">
                         <div id="toCityLabelContainer"><label class="control-label" for="toCity">To</label></div>
-                        <select id="toCity" class="form-control" style="width:75%">
+                        <select id="toCity" class="form-control" style="width:90%">
                             <option ng-repeat="city in cities">{{city}}</option>
                         </select>
                     </div>
 
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button ng-repeat="sortingType in SORTING_TYPES" type="button" class="btn btn-default">{{sortingType}}</button>
+                    <!--<div id="sortingTypesContainer" style="width:20%; float:left">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button ng-repeat="sortingType in SORTING_TYPES" style="width:90%" type="button" class="btn btn-default">{{sortingType}}</button>
+                        </div>
+                    </div>-->
+
+                    <div id="sortingTypesContainer" class="list-group" style="width:20%; float:left">
+                        <button ng-repeat="sortingType in SORTING_TYPES" type="button" class="list-group-item" style="width:90%">{{sortingType}}</button>
                     </div>
 
-                    <div class="btn-group">
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button>
+                    <div id="searchButtonContainer" style="width:20%; float:left">
+                        <div id="spaceFiller">&nbsp;</div>
+                        <div class="btn-group">
+                            <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button>
+                        </div>
                     </div>
 
+                </div>
+
+                <div class="panel-footer" style="background:white">
+                    <p>Display trips here</p>
                 </div>
 
             </div>
