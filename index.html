@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="tripSorter">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- jQuery -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="assets/libs/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet"/>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- angular -->
+    <script src="assets/libs/angular/angular.min.js"></script>
+    <!-- assets -->
+    <link href="assets/css/index.css" rel="stylesheet"/>
+    <script src="assets/js/min-priority-queue.js"></script>
+    <!--<script src="response-json-wrapper.js"></script>-->
+    <script src="response-json-wrapper-corrected.js"></script>
+    <!--<script src="response-json-wrapper-example.js"></script>-->
+    <script src="assets/js/dijkstra.js"></script>
+    <!--<script src="api-response.js"></script>-->
+    <!-- project -->
+    <script src="app/app.js"></script>
+</head>
+<body>
+    <div ng-controller="mainController" style="margin: 0 auto;width:85%">
+
+        <div id="formContainer">
+            <div class = "panel panel-primary componentContainer">
+                <div class = "panel-heading">
+                    <h3 class = "panel-title">TripSorter</h3>
+                </div>
+
+                <div class = "panel-body">
+                    <!--<div id="classNameContainer" class="form-group {{classComponentError ? 'has-warning' : ''" style="width:50%; float:left">-->
+                        <!--<div id="new_classNameLabelContainer"><label class="control-label" for="new_className">Name</label></div>-->
+                        <!--<input id="new_className" type="text" ng-model="className" class="form-control" style="width:75%" placeholder="Enter class name"/>-->
+                        <!--<label ng-show="false" class="control-label" for="new_className"><i>Please enter class name</i></label>-->
+                    <!--</div>-->
+
+                    <div id="fromCityContainer" style="width:50%; float:left">
+                        <div id="fromCityLabelContainer"><label class="control-label" for="fromCity">From</label></div>
+                        <select id="fromCity" class="form-control" style="width:75%">
+                            <option ng-repeat="city in cities">{{city}}</option>
+                        </select>
+                    </div>
+
+                    <div id="toCityContainer" style="width:50%; float:left">
+                        <div id="toCityLabelContainer"><label class="control-label" for="toCity">To</label></div>
+                        <select id="toCity" class="form-control" style="width:75%">
+                            <option ng-repeat="city in cities">{{city}}</option>
+                        </select>
+                    </div>
+
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button ng-repeat="sortingType in SORTING_TYPES" type="button" class="btn btn-default">{{sortingType}}</button>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

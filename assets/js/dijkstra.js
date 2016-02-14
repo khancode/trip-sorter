@@ -77,9 +77,9 @@ function Dijkstra() {
             var cost = node.cost * (1 - (node.discount *.01)); // using cost as weight
             var time = parseInt(node.duration.h + node.duration.m); // using cost as weight
             var weight;
-            if (sortingType == 'CHEAPEST')
+            if (sortingType == 'Cheapest')
                 weight = cost;
-            else if (sortingType == 'FASTEST')
+            else if (sortingType == 'Fastest')
                 weight = time;
             else
                 throw 'Incorrect sortingType value: ' + sortingType;

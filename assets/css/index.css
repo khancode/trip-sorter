@@ -1,0 +1,37 @@
+#formContainer {
+    padding: 5%;
+    width: 50%;
+    float: left;
+}
+
+/*.form-group {*/
+/*padding:2%;*/
+/*-moz-box-shadow: 0 0 2px blue;*/
+/*-webkit-box-shadow: 0 0 2px blue;*/
+/*box-shadow: 0 0 2px blue;*/
+/*}*/
+
+#varList {
+    padding-left:7%;
+}
+
+#methodList {
+    padding-left:7%;
+}
+
+#resultContainer {
+    padding-top: 5%;
+    padding-right: 12.5%;
+    width: 50%;
+    float: left;
+}
+
+.componentContainer {
+    padding:2%;
+    margin-left:2%;
+    margin-right:2%;
+    margin-bottom:4%;
+    -moz-box-shadow: 0 0 15px #5bc0de;
+    -webkit-box-shadow: 0 0 15px #5bc0de;
+    box-shadow: 0 0 15px #5bc0de;
+}
