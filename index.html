@@ -59,7 +59,7 @@
                     </div>-->
 
                     <div id="sortingTypesContainer" class="list-group" style="width:20%; float:left">
-                        <button ng-repeat="sortingType in SORTING_TYPES" type="button" class="list-group-item" style="width:90%">{{sortingType}}</button>
+                        <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="list-group-item" style="width:90%">{{s}}</button>
                     </div>
 
                     <div id="searchButtonContainer" style="width:20%; float:left">
@@ -70,7 +70,11 @@
                 </div>
 
                 <div class="panel-footer" style="background:white">
-                    <p ng-repeat="trip in trips">{{trip.departure}} -> {{trip.arrival}}</p>
+                    <div class="panel panel-primary" ng-repeat="trip in trips">
+                        <p>{{trip.departure}} -> {{trip.arrival}}</p>
+                        <p>{{trip.transport}} {{trip.reference}} for {{trip.duration.h}}h{{trip.duration.m}}</p>
+                    </div>
+
                 </div>
 
             </div>

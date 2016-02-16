@@ -15,13 +15,21 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', function($scope, 
     $scope.SORTING_TYPES = SORTING_TYPES;
     $scope.cities = getCities($scope.deals);
     var dealReferenceMap = getDealReferenceMap($scope.deals);
+    $scope.sortingType = $scope.SORTING_TYPES[0];
     $scope.trips;
+
+    $scope.fromCity = 'London';
+    $scope.toCity = 'Athens';
+
+    $scope.changeSortingType = function(sortingType) {
+        $scope.sortingType = sortingType;
+    };
 
     $scope.submitForm = function() {
 
         validate($scope.fromCity, $scope.toCity);
 
-        $scope.trips = findTrips($scope.deals, 'Cheapest', $scope.fromCity, $scope.toCity);
+        $scope.trips = findTrips($scope.deals, $scope.sortingType, $scope.fromCity, $scope.toCity);
     };
 
     function validate(fromCity, toCity) {
