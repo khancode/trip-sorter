@@ -2,20 +2,43 @@
  * Created by khanc on 2/8/2016.
  */
 
-$dijkstra = new Dijkstra();
+$shortestPathFinderInjected = new ShortestPathFinder();
 
-function Dijkstra() {
+function ShortestPathFinder() {
 
-    this.run = function(deals, sortingType, source, dest) {
-
+    this.run = function(deals, dealReferenceMap, sortingType, source, dest) {
         // Create adjacency matrix of all vertices (cities)
         var adjacencyMatrix = createAdjacencyMatrix(deals, sortingType);
 
-        // Find shortest path
-        return findShortestPath(adjacencyMatrix, source, dest);
+        // Run Dijkstra's shortest path algorithm
+        var dijkstraResult = runDijkstra(adjacencyMatrix, source, dest);
+
+        // Now extract the shortest path from source -> dest
+        return extractShortestPath(dijkstraResult, dealReferenceMap, dest);
     };
 
-    function findShortestPath(graph, source, dest) {
+    function extractShortestPath(dijkstraResult, dealReferenceMap, dest) {
+        var trips = [];
+        var arrivalCity = dest;
+        var departureCity = dijkstraResult.prev[arrivalCity];
+        while (departureCity != undefined) {
+            console.log('departureCity: ' + departureCity);
+            console.log('arrivalCity: ' + arrivalCity);
+
+            trips.push(dealReferenceMap[dijkstraResult.referenceDealMap[departureCity + arrivalCity]]);
+            arrivalCity = departureCity;
+            departureCity = dijkstraResult.prev[arrivalCity];
+        }
+
+        trips.reverse();
+
+        console.log('dat final destination doe');
+        console.log(trips);
+
+        return trips;
+    }
+
+    function runDijkstra(graph, source, dest) {
         var dist = [];
         var prev = [];
         var referenceDealMap = [];
@@ -61,11 +84,11 @@ function Dijkstra() {
         }
 
         return {dist:dist, prev:prev, referenceDealMap:referenceDealMap};
-    };
+    }
 
     function createAdjacencyMatrix(dataList, sortingType) {
 
-        var matrix = []; // this will be a 3D array to store adjacencies
+        var matrix = []; // this will be a 2D array to store city adjacencies
 
         for (var i in dataList) {
             var node = dataList[i];
@@ -74,8 +97,8 @@ function Dijkstra() {
             var to = node.arrival;
             var transport = node.transport;
 
-            var cost = node.cost * (1 - (node.discount *.01)); // using cost as weight
-            var time = parseInt(node.duration.h + node.duration.m); // using cost as weight
+            var cost = node.cost * (1 - (node.discount *.01));
+            var time = parseInt(node.duration.h + node.duration.m);
             var weight;
             if (sortingType == 'Cheapest')
                 weight = cost;
@@ -96,6 +119,6 @@ function Dijkstra() {
         }
 
         return matrix;
-    };
+    }
 
 }

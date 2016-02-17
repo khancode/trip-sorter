@@ -6,30 +6,40 @@ var myApp = angular.module('tripSorter', []);
 
 myApp.value('SORTING_TYPES', ['Cheapest', 'Fastest']);
 
-myApp.controller('mainController', ['$scope', 'SORTING_TYPES', function($scope, SORTING_TYPES) {
+myApp.service('apiResponse', function() {
+    this.get = function() {
+        return $apiResponseInjected.getResponse();
+    };
+});
+
+myApp.service('shortestPathFinder', function() {
+    this.find = function(deals, dealReferenceMap, sortingType, fromCity, toCity) {
+        return $shortestPathFinderInjected.run(deals, dealReferenceMap, sortingType, fromCity, toCity);
+    };
+});
+
+myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 'shortestPathFinder', function($scope, SORTING_TYPES, apiResponse, shortestPathFinder) {
     console.log('inside mainController');
 
-    var response = $api.getResponse();
+    var response = apiResponse.get();
+    var dealReferenceMap = getDealReferenceMap(response.deals);
 
     $scope.deals = response.deals;
     $scope.SORTING_TYPES = SORTING_TYPES;
     $scope.cities = getCities($scope.deals);
-    var dealReferenceMap = getDealReferenceMap($scope.deals);
     $scope.sortingType = $scope.SORTING_TYPES[0];
+    $scope.fromCity = 'London'; //TODO: remove default value
+    $scope.toCity = 'Athens'; //TODO: remove default value
     $scope.trips;
-
-    $scope.fromCity = 'London';
-    $scope.toCity = 'Athens';
 
     $scope.changeSortingType = function(sortingType) {
         $scope.sortingType = sortingType;
     };
 
     $scope.submitForm = function() {
-
         validate($scope.fromCity, $scope.toCity);
 
-        $scope.trips = findTrips($scope.deals, $scope.sortingType, $scope.fromCity, $scope.toCity);
+        $scope.trips = shortestPathFinder.find($scope.deals, dealReferenceMap, $scope.sortingType, $scope.fromCity, $scope.toCity);
     };
 
     function validate(fromCity, toCity) {
@@ -38,49 +48,24 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', function($scope, 
             throw 'Please select from and to cities';
     }
 
-    function findTrips(deals, sortingType, source, dest) {
-        // Run Dijkstra's shortest path algo
-        var shortestPathObj = $dijkstra.run(deals, sortingType, source, dest);
-
-        // Now extract the shortest path from source -> dest
-        var trips = [];
-        var arrivalCity = dest;
-        var departureCity = shortestPathObj.prev[arrivalCity];
-        while (departureCity != undefined) {
-            console.log('departureCity: ' + departureCity);
-            console.log('arrivalCity: ' + arrivalCity);
-
-            trips.push(dealReferenceMap[shortestPathObj.referenceDealMap[departureCity + arrivalCity]]);
-            arrivalCity = departureCity;
-            departureCity = shortestPathObj.prev[arrivalCity];
-        }
-
-        trips.reverse();
-
-        console.log('dat final destination doe');
-        console.log(trips);
-
-        return trips;
-    }
-
     function getCities(deals) {
-        var citiesHashmap = {};
+        var cityHashmap = {};
         var cities = [];
         for (var i in deals) {
             var deal = deals[i];
 
-            if (!citiesHashmap[deal.departure]) {
-                citiesHashmap[deal.departure] = 1;
+            if (!cityHashmap[deal.departure]) {
+                cityHashmap[deal.departure] = 1;
                 cities.push(deal.departure);
             }
 
-            if (!citiesHashmap[deal.arrival]) {
-                citiesHashmap[deal.arrival] = 1;
+            if (!cityHashmap[deal.arrival]) {
+                cityHashmap[deal.arrival] = 1;
                 cities.push(deal.arrival);
             }
         }
 
-        cities.sort();
+        cities.sort(); // alphabetical order
         return cities;
     }
 
