@@ -9,13 +9,13 @@ function Dijkstra() {
     this.run = function(deals, sortingType, source, dest) {
 
         // Create adjacency matrix of all vertices (cities)
-        var adjacencyMatrix = this.createAdjacencyMatrix(deals, sortingType);
+        var adjacencyMatrix = createAdjacencyMatrix(deals, sortingType);
 
         // Find shortest path
-        return this.findShortestPath(adjacencyMatrix, source, dest);
+        return findShortestPath(adjacencyMatrix, source, dest);
     };
 
-    this.findShortestPath = function(graph, source, dest) {
+    function findShortestPath(graph, source, dest) {
         var dist = [];
         var prev = [];
         var referenceDealMap = [];
@@ -63,7 +63,7 @@ function Dijkstra() {
         return {dist:dist, prev:prev, referenceDealMap:referenceDealMap};
     };
 
-    this.createAdjacencyMatrix = function(dataList, sortingType) {
+    function createAdjacencyMatrix(dataList, sortingType) {
 
         var matrix = []; // this will be a 3D array to store adjacencies
 
