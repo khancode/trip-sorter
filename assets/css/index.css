@@ -36,3 +36,8 @@
     -webkit-box-shadow: 0 0 15px #5bc0de;
     box-shadow: 0 0 15px #5bc0de;
 }
+
+.oddListGroupItem {
+    background: #bee8f8;
+    /*background:lightblue;*/
+}
