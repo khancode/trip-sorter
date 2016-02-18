@@ -2,7 +2,7 @@
 <html lang="en" ng-app="tripSorter">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>TripSorter</title>
     <!-- jQuery -->
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- bootstrap -->
@@ -69,9 +69,32 @@
                             </div>
                         </div>
                     </div>
+                    <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
+                        <!--<div class="list-group-item" style="background:lightblue">-->
+                            <!--<div style="width:50%; float:left"><h3 class="list-group-item-heading"><b>Total</b></h3></div><span style="width:50%; margin-top:5%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span><span style="float:right"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!-- Working code below!!!! -->
+                    <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
+                        <!--<div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">-->
+
+                            <!--<span style="text-align: left ;width: 33%"><h3 style="display:inline" class="list-group-item-heading"><b>Total</b></h3></span>-->
+
+                            <!--<span style="text-align: center; width: 33%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span>-->
+
+                            <!--<span style="text-align: right; width: 33%"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
+
+                        <!--</div>-->
+                    <!--</div>                    -->
                     <div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">
-                        <div class="list-group-item" style="background:lightblue">
-                            <h4 class="list-group-item-heading"><b style="width:25%">Total</b><span style="width:50%">{{totalTime.h}}h{{totalTime.m}}</span><span style="float:right"><b>{{totalCost}}&#8364;</b></span></h4>
+                        <div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">
+
+                            <span style="text-align: left; font-size:1.25em; width: 33%"><b>Total</b></span>
+
+                            <span style="text-align: center; width: 33%">{{totalTime.h}}h{{totalTime.m}}</span>
+
+                            <span style="text-align: right; font-size:1.25em; width: 33%"><b>{{totalCost}}&#8364;</b></span>
+
                         </div>
                     </div>
                 </div>
