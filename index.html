@@ -23,12 +23,11 @@
     <script src="app/app.js"></script>
 </head>
 <body>
-    <div ng-controller="mainController" style="margin: 0 auto;width:85%">
-
+    <div ng-controller="mainController" style="margin: 0 auto; width:85%">
         <div id="formContainer">
-            <div class = "panel panel-primary componentContainer">
+            <div class = "panel panel-info componentContainer">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style="text-align:center; padding:0">TripSorter</h3>
+                    <h3 class="panel-title" style="text-align:center; padding:0"><b>TripSorter</b></h3>
                 </div>
 
                 <div class="panel-body" style="padding-bottom:0%">
@@ -38,39 +37,28 @@
                         <!--<label ng-show="false" class="control-label" for="new_className"><i>Please enter class name</i></label>-->
                     <!--</div>-->
 
-                    <div id="fromCityContainer" style="width:30%; float:left">
-                        <div id="fromCityLabelContainer"><label class="control-label" for="fromCity">From</label></div>
+                    <div id="fromCityContainer" style="width:40%; float:left">
+                        <!--<span id="fromCityLabelContainer" style="width:25%"><label class="control-label" for="fromCity">From</label></span>-->
                         <select ng-model="fromCity" id="fromCity" class="form-control" style="width:90%">
+                            <option value="" selected disabled>From</option>
+                            <option ng-repeat="city in cities">{{city}}</option>
+                        </select>
+                        <select ng-model="toCity" id="toCity" class="form-control" style="width:90%; margin-top:7.5%" placeholder="To">
+                            <option value="" selected disabled>To</option>
                             <option ng-repeat="city in cities">{{city}}</option>
                         </select>
                     </div>
-
-                    <div id="toCityContainer" style="width:30%; float:left">
-                        <div id="toCityLabelContainer"><label class="control-label" for="toCity">To</label></div>
-                        <select ng-model="toCity" id="toCity" class="form-control" style="width:90%">
-                            <option ng-repeat="city in cities">{{city}}</option>
-                        </select>
+                    <div id="sortingTypesContainer" class="list-group" style="width:27%; float:left">
+                        <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="btn list-group-item" style="text-align:center">{{s}}</button>
                     </div>
-
-                    <!--<div id="sortingTypesContainer" style="width:20%; float:left">
-                        <div class="btn-group" role="group" aria-label="...">
-                            <button ng-repeat="sortingType in SORTING_TYPES" style="width:90%" type="button" class="btn btn-default">{{sortingType}}</button>
-                        </div>
-                    </div>-->
-
-                    <div id="sortingTypesContainer" class="list-group" style="width:17%; float:left">
-                        <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="list-group-item" style="text-align:center">{{s}}</button>
-                    </div>
-
-                    <div id="searchButtonContainer" style="width:20%; float:left; margin-left:3%">
+                    <div id="searchButtonContainer" style="width:30%; float:left; margin-left:3%">
                         <div id="spaceFiller">&nbsp;</div>
-                        <button ng-click="submitForm()" class="btn btn-success" style="width:100%; text-align:center"><span class="glyphicon glyphicon-search" style="width:20%"></span><span style="width:80%">Search</span></button>
+                        <button ng-click="submitForm()" class="btn btn-success" style="width:100%; margin-top:3%; text-align:center"><span class="glyphicon glyphicon-search" style="width:20%"></span><span style="width:80%">Search</span></button>
                     </div>
-
                 </div>
 
                 <div class="panel-footer" style="background:white; padding-top:2%">
-                    <div class="list-group" style="width:75%; margin: 0 auto">
+                    <div class="list-group" style="margin: 0 auto">
                         <div class="list-group-item" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'" style="margin: 2% 0 0 0">
                             <h4 class="list-group-item-heading">{{trip.departure}} <span class="glyphicon glyphicon-chevron-right"></span> {{trip.arrival}} <span style="float:right"><b>{{trip.cost * (1 - (trip.discount *.01))}}&#8364;</b></span></h4>
                             <div class="list-group-item-text">
@@ -79,18 +67,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="list-group" ng-show="trips" style="width:75%; margin: 2% auto">
+                    <div class="list-group" ng-show="trips" style="margin: 3% auto">
                         <div class="list-group-item" style="background:lightblue">
                             <h4 class="list-group-item-heading"><b style="width:25%">Total</b><span style="width:50%">{{totalTime.h}}h{{totalTime.m}}</span><span style="float:right"><b>{{totalCost}}&#8364;</b></span></h4>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
-
 
 </body>
 </html>
