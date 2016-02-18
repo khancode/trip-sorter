@@ -54,6 +54,11 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
         //TODO: need to update UI for input validation
         if (!fromCity || !toCity)
             throw 'Please select from and to cities';
+
+        if (fromCity == toCity) {
+            $scope.trips = null;
+            throw 'Please select different from and to cities';
+        }
     }
 
     function getUnitTotals(trips) {
