@@ -31,6 +31,9 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
     $scope.fromCity = 'London'; //TODO: remove default value
     $scope.toCity = 'Athens'; //TODO: remove default value
     $scope.trips;
+    $scope.totalTime;
+    $scope.totalCost;
+    $scope.totalSavings;
 
     $scope.changeSortingType = function(sortingType) {
         $scope.sortingType = sortingType;
@@ -40,12 +43,42 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
         validate($scope.fromCity, $scope.toCity);
 
         $scope.trips = shortestPathFinder.find($scope.deals, dealReferenceMap, $scope.sortingType, $scope.fromCity, $scope.toCity);
+
+        var unitTotals = getUnitTotals($scope.trips);
+        $scope.totalTime = unitTotals.time;
+        $scope.totalCost = unitTotals.cost;
+        $scope.totalSavings = unitTotals.savings;
     };
 
     function validate(fromCity, toCity) {
         //TODO: need to update UI for input validation
         if (!fromCity || !toCity)
             throw 'Please select from and to cities';
+    }
+
+    function getUnitTotals(trips) {
+        var unitTotals = {cost:0, savings:0, time:{h:0, m:0}};
+        for (var i in trips) {
+            unitTotals.cost += trips[i].cost * (1 - (trips[i].discount * .01));
+            unitTotals.savings += trips[i].cost * (trips[i].discount * .01);
+            unitTotals.time.h += parseInt(trips[i].duration.h);
+            unitTotals.time.m += parseInt(trips[i].duration.m);
+        }
+
+        if (unitTotals.time.m >= 60) {
+            var newMinutes = unitTotals.time.m % 60;
+            var addHours = parseInt(unitTotals.time.m / 60);
+            unitTotals.time.h += addHours;
+            unitTotals.time.m = newMinutes;
+        }
+
+        if (unitTotals.time.h < 10)
+            unitTotals.time.h = '0' + unitTotals.time.h;
+
+        if (unitTotals.time.m < 10)
+            unitTotals.time.m = '0' + unitTotals.time.m;
+
+        return unitTotals;
     }
 
     function getCities(deals) {

@@ -28,10 +28,10 @@
         <div id="formContainer">
             <div class = "panel panel-primary componentContainer">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style="padding:0">TripSorter</h3>
+                    <h3 class="panel-title" style="text-align:center; padding:0">TripSorter</h3>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" style="padding-bottom:0%">
                     <!--<div id="classNameContainer" class="form-group {{classComponentError ? 'has-warning' : ''" style="width:50%; float:left">-->
                         <!--<div id="new_classNameLabelContainer"><label class="control-label" for="new_className">Name</label></div>-->
                         <!--<input id="new_className" type="text" ng-model="className" class="form-control" style="width:75%" placeholder="Enter class name"/>-->
@@ -69,14 +69,19 @@
 
                 </div>
 
-                <div class="panel-footer" style="background:white">
-                    <div class="list-group" style="padding-top:5%">
-                        <div class="list-group-item" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'">
+                <div class="panel-footer" style="background:white; padding-top:2%">
+                    <div class="list-group" style="width:75%; margin: 0 auto">
+                        <div class="list-group-item" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'" style="margin: 2% 0 0 0">
                             <h4 class="list-group-item-heading">{{trip.departure}} <span class="glyphicon glyphicon-chevron-right"></span> {{trip.arrival}} <span style="float:right"><b>{{trip.cost * (1 - (trip.discount *.01))}}&#8364;</b></span></h4>
                             <div class="list-group-item-text">
                                 <span><b>{{trip.transport}}</b> <i>{{trip.reference}}</i> for {{trip.duration.h}}h{{trip.duration.m}}</span>
                                 <span ng-show="trip.discount != 0" style="float:right"><s style="color:lightcoral">{{trip.cost}}&#8364;</s> <span style="color:limegreen">{{trip.discount}}% off</span></span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="list-group" ng-show="trips" style="width:75%; margin: 2% auto">
+                        <div class="list-group-item" style="background:lightblue">
+                            <h4 class="list-group-item-heading"><b style="width:25%">Total</b><span style="width:50%">{{totalTime.h}}h{{totalTime.m}}</span><span style="float:right"><b>{{totalCost}}&#8364;</b></span></h4>
                         </div>
                     </div>
                 </div>
