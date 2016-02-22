@@ -25,39 +25,44 @@
     <script src="app/app.js"></script>
 </head>
 <body>
-    <div id="formContainer" ng-controller="mainController">
-        <div class = "panel panel-info componentContainer">
+    <div id="appContainer">
+        <div id="formContainer" ng-controller="mainController" class="panel panel-info componentContainer">
             <div class="panel-heading">
-                <h3 class="panel-title" style="text-align:center; padding:0"><b>TripSorter</b></h3>
+                <h3 id="formTitle" class="panel-title">TripSorter</h3>
             </div>
 
-            <div class="panel-body" style="padding-bottom:0%">
-                <div id="fromCityContainer" style="width:40%; float:left">
-                    <select ng-model="fromCity" id="fromCity" class="form-control" style="width:90%">
+            <div id="searchFormContainer" class="panel-body">
+                <div id="fromToCityContainer">
+                    <select ng-model="fromCity" id="fromCitySelect" class="form-control">
                         <option value="" selected disabled>From</option>
                         <option ng-repeat="city in cities">{{city}}</option>
                     </select>
-                    <select ng-model="toCity" id="toCity" class="form-control" style="width:90%; margin-top:7.5%" placeholder="To">
+                    <select ng-model="toCity" id="toCitySelect" class="form-control">
                         <option value="" selected disabled>To</option>
                         <option ng-repeat="city in cities">{{city}}</option>
                     </select>
                 </div>
-                <div id="sortingTypesContainer" class="list-group" style="width:27%; float:left">
+                <div id="sortingTypesContainer" class="list-group">
                     <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="btn list-group-item" style="text-align:center">{{s}}</button>
                 </div>
-                <div id="searchButtonContainer" style="width:30%; float:left; margin-left:3%">
-                    <div id="spaceFiller">&nbsp;</div>
-                    <button ng-click="submitForm()" class="btn btn-success" style="width:100%; margin-top:3%; text-align:center"><span class="glyphicon glyphicon-search" style="width:20%"></span><span style="width:80%">Search</span></button>
+                <div id="searchButtonContainer">
+                    <button id="searchButton" ng-click="submitForm()" class="btn btn-success"><span id="searchIcon" class="glyphicon glyphicon-search"></span><span id="searchButtonText">Search</span></button>
                 </div>
             </div>
 
-            <div class="panel-footer" style="background:white; padding-top:2%">
-                <div class="list-group" style="margin: 0 auto">
-                    <div class="list-group-item animated flipInX" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'" style="margin: 2% 0 0 0">
-                        <h4 class="list-group-item-heading">{{trip.departure}} <span class="glyphicon glyphicon-chevron-right"></span> {{trip.arrival}} <span style="float:right"><b>{{trip.cost * (1 - (trip.discount *.01))}}&#8364;</b></span></h4>
+            <div id="searchResultsContainer" class="panel-footer">
+                <div class="list-group">
+                    <div class="list-group-item searchResult animated flipInX" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'">
+                        <h4 class="list-group-item-heading">
+                            {{trip.departure}} <span class="glyphicon glyphicon-chevron-right"></span> {{trip.arrival}}<span class="tripCostText">{{trip.cost * (1 - (trip.discount *.01))}}&#8364;</span>
+                        </h4>
                         <div class="list-group-item-text">
-                            <span><b>{{trip.transport}}</b> <i>{{trip.reference}}</i> for {{trip.duration.h}}h{{trip.duration.m}}</span>
-                            <span ng-show="trip.discount != 0" style="float:right"><s style="color:lightcoral">{{trip.cost}}&#8364;</s> <span style="color:limegreen">{{trip.discount}}% off</span></span>
+                            <span class="tripInfo">
+                                <span class="transportText">{{trip.transport}}</span> <span class="referenceText">{{trip.reference}}</span> for {{trip.duration.h}}h{{trip.duration.m}}
+                            </span>
+                            <span class="discountContainer" ng-show="trip.discount != 0">
+                                <span class="preDiscountCostText">{{trip.cost}}&#8364;</span> <span class="discountPercentageText">{{trip.discount}}% off</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -91,7 +96,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!--</div>-->
 
 </body>
 </html>
