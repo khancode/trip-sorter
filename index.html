@@ -25,77 +25,68 @@
     <script src="app/app.js"></script>
 </head>
 <body>
-    <div ng-controller="mainController" style="margin: 0 auto; width:85%">
-        <div id="formContainer">
-            <div class = "panel panel-info componentContainer">
-                <div class="panel-heading">
-                    <h3 class="panel-title" style="text-align:center; padding:0"><b>TripSorter</b></h3>
+    <div id="formContainer" ng-controller="mainController">
+        <div class = "panel panel-info componentContainer">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align:center; padding:0"><b>TripSorter</b></h3>
+            </div>
+
+            <div class="panel-body" style="padding-bottom:0%">
+                <div id="fromCityContainer" style="width:40%; float:left">
+                    <select ng-model="fromCity" id="fromCity" class="form-control" style="width:90%">
+                        <option value="" selected disabled>From</option>
+                        <option ng-repeat="city in cities">{{city}}</option>
+                    </select>
+                    <select ng-model="toCity" id="toCity" class="form-control" style="width:90%; margin-top:7.5%" placeholder="To">
+                        <option value="" selected disabled>To</option>
+                        <option ng-repeat="city in cities">{{city}}</option>
+                    </select>
                 </div>
-
-                <div class="panel-body" style="padding-bottom:0%">
-                    <!--<div id="classNameContainer" class="form-group {{classComponentError ? 'has-warning' : ''" style="width:50%; float:left">-->
-                        <!--<div id="new_classNameLabelContainer"><label class="control-label" for="new_className">Name</label></div>-->
-                        <!--<input id="new_className" type="text" ng-model="className" class="form-control" style="width:75%" placeholder="Enter class name"/>-->
-                        <!--<label ng-show="false" class="control-label" for="new_className"><i>Please enter class name</i></label>-->
-                    <!--</div>-->
-
-                    <div id="fromCityContainer" style="width:40%; float:left">
-                        <!--<span id="fromCityLabelContainer" style="width:25%"><label class="control-label" for="fromCity">From</label></span>-->
-                        <select ng-model="fromCity" id="fromCity" class="form-control" style="width:90%">
-                            <option value="" selected disabled>From</option>
-                            <option ng-repeat="city in cities">{{city}}</option>
-                        </select>
-                        <select ng-model="toCity" id="toCity" class="form-control" style="width:90%; margin-top:7.5%" placeholder="To">
-                            <option value="" selected disabled>To</option>
-                            <option ng-repeat="city in cities">{{city}}</option>
-                        </select>
-                    </div>
-                    <div id="sortingTypesContainer" class="list-group" style="width:27%; float:left">
-                        <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="btn list-group-item" style="text-align:center">{{s}}</button>
-                    </div>
-                    <div id="searchButtonContainer" style="width:30%; float:left; margin-left:3%">
-                        <div id="spaceFiller">&nbsp;</div>
-                        <button ng-click="submitForm()" class="btn btn-success" style="width:100%; margin-top:3%; text-align:center"><span class="glyphicon glyphicon-search" style="width:20%"></span><span style="width:80%">Search</span></button>
-                    </div>
+                <div id="sortingTypesContainer" class="list-group" style="width:27%; float:left">
+                    <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="btn list-group-item" style="text-align:center">{{s}}</button>
                 </div>
+                <div id="searchButtonContainer" style="width:30%; float:left; margin-left:3%">
+                    <div id="spaceFiller">&nbsp;</div>
+                    <button ng-click="submitForm()" class="btn btn-success" style="width:100%; margin-top:3%; text-align:center"><span class="glyphicon glyphicon-search" style="width:20%"></span><span style="width:80%">Search</span></button>
+                </div>
+            </div>
 
-                <div class="panel-footer" style="background:white; padding-top:2%">
-                    <div class="list-group" style="margin: 0 auto">
-                        <div class="list-group-item animated flipInX" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'" style="margin: 2% 0 0 0">
-                            <h4 class="list-group-item-heading">{{trip.departure}} <span class="glyphicon glyphicon-chevron-right"></span> {{trip.arrival}} <span style="float:right"><b>{{trip.cost * (1 - (trip.discount *.01))}}&#8364;</b></span></h4>
-                            <div class="list-group-item-text">
-                                <span><b>{{trip.transport}}</b> <i>{{trip.reference}}</i> for {{trip.duration.h}}h{{trip.duration.m}}</span>
-                                <span ng-show="trip.discount != 0" style="float:right"><s style="color:lightcoral">{{trip.cost}}&#8364;</s> <span style="color:limegreen">{{trip.discount}}% off</span></span>
-                            </div>
+            <div class="panel-footer" style="background:white; padding-top:2%">
+                <div class="list-group" style="margin: 0 auto">
+                    <div class="list-group-item animated flipInX" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'" style="margin: 2% 0 0 0">
+                        <h4 class="list-group-item-heading">{{trip.departure}} <span class="glyphicon glyphicon-chevron-right"></span> {{trip.arrival}} <span style="float:right"><b>{{trip.cost * (1 - (trip.discount *.01))}}&#8364;</b></span></h4>
+                        <div class="list-group-item-text">
+                            <span><b>{{trip.transport}}</b> <i>{{trip.reference}}</i> for {{trip.duration.h}}h{{trip.duration.m}}</span>
+                            <span ng-show="trip.discount != 0" style="float:right"><s style="color:lightcoral">{{trip.cost}}&#8364;</s> <span style="color:limegreen">{{trip.discount}}% off</span></span>
                         </div>
                     </div>
-                    <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
-                        <!--<div class="list-group-item" style="background:lightblue">-->
-                            <!--<div style="width:50%; float:left"><h3 class="list-group-item-heading"><b>Total</b></h3></div><span style="width:50%; margin-top:5%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span><span style="float:right"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
-                        <!--</div>-->
+                </div>
+                <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
+                    <!--<div class="list-group-item" style="background:lightblue">-->
+                        <!--<div style="width:50%; float:left"><h3 class="list-group-item-heading"><b>Total</b></h3></div><span style="width:50%; margin-top:5%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span><span style="float:right"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
                     <!--</div>-->
-                    <!-- Working code below!!!! -->
-                    <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
-                        <!--<div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">-->
+                <!--</div>-->
+                <!-- Working code below!!!! -->
+                <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
+                    <!--<div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">-->
 
-                            <!--<span style="text-align: left ;width: 33%"><h3 style="display:inline" class="list-group-item-heading"><b>Total</b></h3></span>-->
+                        <!--<span style="text-align: left ;width: 33%"><h3 style="display:inline" class="list-group-item-heading"><b>Total</b></h3></span>-->
 
-                            <!--<span style="text-align: center; width: 33%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span>-->
+                        <!--<span style="text-align: center; width: 33%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span>-->
 
-                            <!--<span style="text-align: right; width: 33%"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
+                        <!--<span style="text-align: right; width: 33%"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
 
-                        <!--</div>-->
-                    <!--</div>                    -->
-                    <div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">
-                        <div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">
+                    <!--</div>-->
+                <!--</div>                    -->
+                <div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">
+                    <div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">
 
-                            <span style="text-align: left; font-size:1.25em; width: 33%"><b>Total</b></span>
+                        <span style="text-align: left; font-size:1.25em; width: 33%"><b>Total</b></span>
 
-                            <span style="text-align: center; width: 33%">{{totalTime.h}}h{{totalTime.m}}</span>
+                        <span style="text-align: center; width: 33%">{{totalTime.h}}h{{totalTime.m}}</span>
 
-                            <span style="text-align: right; font-size:1.25em; width: 33%"><b>{{totalCost}}&#8364;</b></span>
+                        <span style="text-align: right; font-size:1.25em; width: 33%"><b>{{totalCost}}&#8364;</b></span>
 
-                        </div>
                     </div>
                 </div>
             </div>

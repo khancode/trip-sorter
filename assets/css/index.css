@@ -1,30 +1,8 @@
 #formContainer {
-    padding: 5%;
+    padding: 4.25%;
     width: 650px;
     margin: 0 auto;
     /*float: left;*/
-}
-
-/*.form-group {*/
-/*padding:2%;*/
-/*-moz-box-shadow: 0 0 2px blue;*/
-/*-webkit-box-shadow: 0 0 2px blue;*/
-/*box-shadow: 0 0 2px blue;*/
-/*}*/
-
-#varList {
-    padding-left:7%;
-}
-
-#methodList {
-    padding-left:7%;
-}
-
-#resultContainer {
-    padding-top: 5%;
-    padding-right: 12.5%;
-    width: 50%;
-    float: left;
 }
 
 .componentContainer {
@@ -39,5 +17,4 @@
 
 .oddListGroupItem {
     background-color: #daf0f8;
-    /*background:lightblue;*/
 }
