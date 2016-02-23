@@ -73,7 +73,7 @@ function ShortestPathFinder() {
             }
         }
 
-        return {dist:dist, prev:prev, referenceDealMap:referenceDealMap};
+        return {prev:prev, referenceDealMap:referenceDealMap};
     }
 
     function createAdjacencyMatrix(dataList, sortingType) {
