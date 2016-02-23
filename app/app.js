@@ -1,5 +1,5 @@
 /**
- * Created by khanc on 2/13/2016.
+ * Created by Omar Khan
  */
 
 var myApp = angular.module('tripSorter', []);
@@ -8,6 +8,7 @@ myApp.value('SORTING_TYPES', ['Cheapest', 'Fastest']);
 
 myApp.service('apiResponse', function() {
     this.get = function() {
+        // This is where a http request would be made to get the API response
         return $apiResponseInjected.getResponse();
     };
 });
@@ -31,9 +32,7 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
     $scope.fromCity = 'London'; //TODO: remove default value
     $scope.toCity = 'Athens'; //TODO: remove default value
     $scope.trips;
-    $scope.totalTime;
-    $scope.totalCost;
-    $scope.totalSavings;
+    $scope.unitTotals;
 
     $scope.changeSortingType = function(sortingType) {
         $scope.sortingType = sortingType;
@@ -44,10 +43,7 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
 
         $scope.trips = shortestPathFinder.find($scope.deals, dealReferenceMap, $scope.sortingType, $scope.fromCity, $scope.toCity);
 
-        var unitTotals = getUnitTotals($scope.trips);
-        $scope.totalTime = unitTotals.time;
-        $scope.totalCost = unitTotals.cost;
-        $scope.totalSavings = unitTotals.savings;
+        $scope.unitTotals = getUnitTotals($scope.trips);
     };
 
     function validate(fromCity, toCity) {
@@ -62,12 +58,14 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
     }
 
     function getUnitTotals(trips) {
-        var unitTotals = {cost:0, savings:0, time:{h:0, m:0}};
+        var unitTotals = {tripsCount:trips.length, cost:0, savings:0, time:{h:0, m:0}, transportCount:{bus:0, car:0, train:0}};
         for (var i in trips) {
-            unitTotals.cost += trips[i].cost * (1 - (trips[i].discount * .01));
-            unitTotals.savings += trips[i].cost * (trips[i].discount * .01);
-            unitTotals.time.h += parseInt(trips[i].duration.h);
-            unitTotals.time.m += parseInt(trips[i].duration.m);
+            var trip = trips[i];
+            unitTotals.cost += trip.cost * (1 - (trip.discount * .01));
+            unitTotals.savings += trip.cost * (trip.discount * .01);
+            unitTotals.time.h += parseInt(trip.duration.h);
+            unitTotals.time.m += parseInt(trip.duration.m);
+            unitTotals.transportCount[trip.transport] += 1;
         }
 
         if (unitTotals.time.m >= 60) {

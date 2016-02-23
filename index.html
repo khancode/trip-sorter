@@ -25,12 +25,11 @@
     <script src="app/app.js"></script>
 </head>
 <body>
-    <div id="appContainer">
-        <div id="formContainer" ng-controller="mainController" class="panel panel-info componentContainer">
+    <div id="appContainer" ng-controller="mainController">
+        <div id="formContainer" class="panel panel-info componentContainer">
             <div class="panel-heading">
                 <h3 id="formTitle" class="panel-title">TripSorter</h3>
             </div>
-
             <div id="searchFormContainer" class="panel-body">
                 <div id="fromToCityContainer">
                     <select ng-model="fromCity" id="fromCitySelect" class="form-control">
@@ -49,10 +48,9 @@
                     <button id="searchButton" ng-click="submitForm()" class="btn btn-success"><span id="searchIcon" class="glyphicon glyphicon-search"></span><span id="searchButtonText">Search</span></button>
                 </div>
             </div>
-
             <div id="searchResultsContainer" class="panel-footer">
                 <div class="list-group">
-                    <div class="list-group-item searchResult animated flipInX" ng-repeat="trip in trips" ng-class-odd="'oddListGroupItem'">
+                    <div ng-repeat="trip in trips" class="list-group-item searchResult animated flipInX" ng-class-odd="'oddListGroupItem'">
                         <h4 class="list-group-item-heading">
                             {{trip.departure}} <span class="glyphicon glyphicon-chevron-right"></span> {{trip.arrival}}<span class="tripCostText">{{trip.cost * (1 - (trip.discount *.01))}}&#8364;</span>
                         </h4>
@@ -66,37 +64,19 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
-                    <!--<div class="list-group-item" style="background:lightblue">-->
-                        <!--<div style="width:50%; float:left"><h3 class="list-group-item-heading"><b>Total</b></h3></div><span style="width:50%; margin-top:5%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span><span style="float:right"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!-- Working code below!!!! -->
-                <!--<div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">-->
-                    <!--<div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">-->
-
-                        <!--<span style="text-align: left ;width: 33%"><h3 style="display:inline" class="list-group-item-heading"><b>Total</b></h3></span>-->
-
-                        <!--<span style="text-align: center; width: 33%"><h4 style="display:inline">{{totalTime.h}}h{{totalTime.m}}</h4></span>-->
-
-                        <!--<span style="text-align: right; width: 33%"><h3 style="display:inline"><b>{{totalCost}}&#8364;</b></h3></span>-->
-
-                    <!--</div>-->
-                <!--</div>                    -->
-                <div class="list-group animated fadeIn" ng-show="trips" style="margin: 3% auto">
-                    <div class="list-group-item" style="background:lightblue; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-items: center; flex-basis: auto">
-
-                        <span style="text-align: left; font-size:1.25em; width: 33%"><b>Total</b></span>
-
-                        <span style="text-align: center; width: 33%">{{totalTime.h}}h{{totalTime.m}}</span>
-
-                        <span style="text-align: right; font-size:1.25em; width: 33%"><b>{{totalCost}}&#8364;</b></span>
-
+                <div id="totalInfoContainer" class="list-group animated fadeIn" ng-show="trips">
+                    <div id="totalInfo" class="list-group-item-heading">
+                        <span id="totalText" class="list-group-item-heading">Total</span>
+                        <span id="totalTimeText">{{unitTotals.time.h}}h{{unitTotals.time.m}}</span>
+                        <span id="totalCostText">{{unitTotals.cost}}&#8364;</span>
+                    </div>
+                    <div id="totalDetailsInfo" class="list-group-item-text">
+                        <span id="totalTripsCount"><span id="totalTripsCountText">{{unitTotals.tripsCount}} trips:</span> <span class="totalTransportTypeCountText" ng-show="unitTotals.transportCount.car != 0">{{unitTotals.transportCount.car}} car<span ng-show="unitTotals.transportCount.car > 1">s</span></span> <span class="totalTransportTypeCountText" ng-show="unitTotals.transportCount.bus != 0">{{unitTotals.transportCount.bus}} bus<span ng-show="unitTotals.transportCount.bus > 1">es</span></span> <span class="totalTransportTypeCountText" ng-show="unitTotals.transportCount.train != 0">{{unitTotals.transportCount.train}} train<span ng-show="unitTotals.transportCount.train > 1">s</span></span></span>
+                        <span id="totalSavings"><span ng-show="unitTotals.savings != 0"><b><span id="totalSavingsText">{{unitTotals.savings}}&#8364;</span> savings!</b></span></span>
                     </div>
                 </div>
             </div>
         </div>
-    <!--</div>-->
-
+    </div>
 </body>
 </html>
