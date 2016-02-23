@@ -20,7 +20,7 @@ email: khancodegt@gmail.com
 
 3. response.json errors:
     - "reference" API response value errors:
-        1. reference value BBP0545 is found in two trips.
+        a. reference value BBP0545 is found in two trips.
             - "transport": "bus",
                   "departure": "Brussels",
                   "arrival": "Paris",
@@ -31,7 +31,7 @@ email: khancodegt@gmail.com
             For correction, I replaced one value with BBP0546 for bus:Brussels->Paris inside response_corrected.json file.
 
 
-        2. reference value TAB0530 is found in two trips:
+        b. reference value TAB0530 is found in two trips:
             - "transport": "train",
                   "departure": "Athens",
                   "arrival": "Budapest",
@@ -42,7 +42,7 @@ email: khancodegt@gmail.com
             For correction, I replaced one value with TAB0531 for train:Athens->Budapest inside response_corrected.json file.
 
 
-        3. reference value CGB0500 is found in two trips
+        c. reference value CGB0500 is found in two trips
             - "transport": "car",
                   "departure": "Geneva",
                   "arrival": "Brussels",
