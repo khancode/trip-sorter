@@ -12,7 +12,7 @@ email: khancodegt@gmail.com
         c. animate.css 3.5.1
         d. jQuery 2.2.0
 
-    - Importing a local json file is restricted by cross browser domain error. To overcome this issue, one would have to run the web app on a local server by using Node.js or another tool. However, for simplicity sake in running this web app without having to create a local server, I inserted the json file data into a javascript file as 'response-json-wrapper.js' and use this js file to import the json data.
+    - Importing a local json file is restricted by cross browser domain error. To overcome this issue, one would have to run the web app on a local server by using Node.js or another tool. However, for simplicity in running this web app without having to create a local server, I inserted the json file data into a javascript file as 'response-json-wrapper.js' & 'response-json-wrapper-corrected.js' (will explain below) and use this js file to import the json data.
 
     - I implemented my own version of Dijkstra's algorithm to find the shortest path (depending on sorting type) from one city to another. Also, I implemented a min-priority queue along with it to get the best efficiency out of Dijkstra's algorithm. These files can be found in assets/js folder.
 
