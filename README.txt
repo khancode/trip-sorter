@@ -1,6 +1,6 @@
 App: TripSorter
 Author: Omar Khan
-email: khancodegt@gmail.com
+Email: khancodegt@gmail.com
 
 1. How to run this web app:
     - Open index.html in a browser (preferably Chrome/Firefox).
