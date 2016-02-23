@@ -2,8 +2,8 @@ App: TripSorter
 Author: Omar Khan
 email: khancodegt@gmail.com
 
-1. How to run this app:
-    - Open index.html in a browser (preferably chrome/firefox) to run this web app.
+1. How to run this web app:
+    - Open index.html in a browser (preferably Chrome/Firefox).
 
 2. Important things to note:
     - Importing a local json file is restricted by cross browser domain error. To overcome this issue, one would have to run the web app on a local server by using Node.js or another tool. However, for simplicity sake in running this web app without having to create a local server, I inserted the json file data into a javascript file as 'response-json-wrapper.js' and use this js file to import the json data.
