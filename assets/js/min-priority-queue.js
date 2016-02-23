@@ -1,49 +1,6 @@
 /**
- * Created by khanc on 2/8/2016.
+ * Created by Omar Khan
  */
-
-/*
-var q = new MinPriorityQueue();
-
-//q.add('a', 3);
-//q.add('b', 2);
-//q.add('c', 4);
-//q.add('d', 5);
-//
-//console.log('dude: ' + q.extractMin());
-//console.log('queue: ');
-//console.log(q.getQueue());
-//console.log('dude2: ' + q.extractMin());
-//console.log(q.getQueue());
-
-q.add('f', 10);
-q.add('c', 5);
-q.add('e', 9);
-q.add('b', 4);
-q.add('d', 8);
-q.add('a', 3);
-console.log('crack');
-console.log(q.getQueue());
-console.log('dat dqueue: ' + q.extractMin());
-console.log('hence the crack:');
-console.log(q.getQueue());
-
-console.log('dat dqueue: ' + q.extractMin());
-console.log('gotta get dat dough::');
-console.log(q.getQueue());
-//console.log('dat dqueue: ' + q.extractMin());
-//console.log('dat dqueue: ' + q.extractMin());
-//console.log('dat dqueue: ' + q.extractMin());
-
-////888
-//console.log('dat indexHashmap: ');
-//console.log(q.getIndexHashmap());
-
-//console.log('dat new code');
-//q.updatePriority('c', 20);
-//console.log(q.getQueue());
-//console.log(q.getIndexHashmap());
-*/
 
 function MinPriorityQueue() {
     var queue = [];
@@ -86,9 +43,6 @@ function MinPriorityQueue() {
             sortDownwards(index);
     };
 
-    /* Getters */
-    this.getQueue = function() { return queue; };
-    this.getIndexHashmap = function() { return indexHashmap; };
     this.isEmpty = function() { return queue.length == 0; };
     this.inQueue = function(id) { return indexHashmap[id] != undefined; };
 

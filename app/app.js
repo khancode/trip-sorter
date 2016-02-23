@@ -20,8 +20,6 @@ myApp.service('shortestPathFinder', function() {
 });
 
 myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 'shortestPathFinder', function($scope, SORTING_TYPES, apiResponse, shortestPathFinder) {
-    console.log('inside mainController');
-
     var response = apiResponse.get();
     var dealReferenceMap = getDealReferenceMap(response.deals);
 

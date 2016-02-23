@@ -1,5 +1,5 @@
 /**
- * Created by khanc on 2/8/2016.
+ * Created by Omar Khan
  */
 
 $shortestPathFinderInjected = new ShortestPathFinder();
@@ -22,18 +22,12 @@ function ShortestPathFinder() {
         var arrivalCity = dest;
         var departureCity = dijkstraResult.prev[arrivalCity];
         while (departureCity != undefined) {
-            console.log('departureCity: ' + departureCity);
-            console.log('arrivalCity: ' + arrivalCity);
-
             trips.push(dealReferenceMap[dijkstraResult.referenceDealMap[departureCity + arrivalCity]]);
             arrivalCity = departureCity;
             departureCity = dijkstraResult.prev[arrivalCity];
         }
 
         trips.reverse();
-
-        console.log('dat final destination doe');
-        console.log(trips);
 
         return trips;
     }
@@ -67,8 +61,6 @@ function ShortestPathFinder() {
                 if (!unvisitedQueue.inQueue(v))
                     continue;
 
-                console.log('dat v of u: ' + v + ' of ' + u);
-
                 var alt = dist[u] + graph[u][v].weight;
 
                 if (alt < dist[v]) {
@@ -79,15 +71,12 @@ function ShortestPathFinder() {
                     unvisitedQueue.updatePriority(v, alt);
                 }
             }
-
-            console.log('dat u: ' + u);
         }
 
         return {dist:dist, prev:prev, referenceDealMap:referenceDealMap};
     }
 
     function createAdjacencyMatrix(dataList, sortingType) {
-
         var matrix = []; // this will be a 2D array to store city adjacencies
 
         for (var i in dataList) {
@@ -108,8 +97,6 @@ function ShortestPathFinder() {
                 throw 'Incorrect sortingType value: ' + sortingType;
 
             var referenceDeal = node.reference;
-
-            //console.log('from: ' + from + ', to: ' + to + ', weight: ' + weight);
 
             if (!matrix[from])
                 matrix[from] = [];
