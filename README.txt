@@ -6,9 +6,11 @@ email: khancodegt@gmail.com
     - Open index.html in a browser (preferably chrome/firefox) to run this web app.
 
 2. Important things to note:
-    - Importing a local json file is restricted by cross browser domain error. Inorder to overcome this problem, one would have to run the web app on a local server by using Node.js or another tool. However, for simplicity sake in running this web app without having to create a local server, I inserted the json file data into a javascript file as 'response-json-wrapper.js' and use this js file to import the json data.
+    - Importing a local json file is restricted by cross browser domain error. To overcome this issue, one would have to run the web app on a local server by using Node.js or another tool. However, for simplicity sake in running this web app without having to create a local server, I inserted the json file data into a javascript file as 'response-json-wrapper.js' and use this js file to import the json data.
+
     - I implemented my own version of Dijkstra's algorithm to find the shortest path (depending on sorting type) from one city to another. Also, I implemented a min-priority queue along with it to get the best efficiency out of Dijkstra's algorithm. These files can be found in assets/js folder.
-    - The response.json data file had business logic errors in it. The json value "reference" in the API response is defined in the pdf instructions file to be a "deal UNIQUE reference number." From my understanding, being unique means it should only be used once but there are 3 reference values being used more than once. I corrected these errors and put them in a new file 'response-json-wrapper-corrected.js' to be used by the app. Below are the details of these errors and the fixes I made for them.
+
+    - The response.json data file had business logic errors in it. The json value "reference" in the API response is defined in the pdf instructions file to be a "deal UNIQUE reference number." From my understanding, being unique means it should only be used once but there are 3 reference values being used more than once. I corrected these errors and placed them in a new file 'response-json-wrapper-corrected.js' to be used by the app. Below are the details of these errors and the fixes I made for them.
 
 3. response.json errors:
     - "reference" API response value errors:
