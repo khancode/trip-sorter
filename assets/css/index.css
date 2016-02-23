@@ -37,6 +37,9 @@
             width: 27%;
             float: left;
         }
+            .sortingTypeButton {
+                text-align: center;
+            }
         #searchButtonContainer {
             width: 30%;
             float: left;
@@ -131,6 +134,9 @@
                 width: 50%;
                 text-align: right;
             }
-                #totalSavingsText {
+                #totalSavingsSentence {
+                    font-weight: bold;
+                }
+                #totalSavingsValue {
                     color: limegreen;
                 }
