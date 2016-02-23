@@ -37,7 +37,8 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
     };
 
     $scope.submitForm = function() {
-        validate($scope.fromCity, $scope.toCity);
+        if (!validate($scope.fromCity, $scope.toCity))
+            return;
 
         $scope.trips = shortestPathFinder.find($scope.deals, dealReferenceMap, $scope.sortingType, $scope.fromCity, $scope.toCity);
 
@@ -45,14 +46,62 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
     };
 
     function validate(fromCity, toCity) {
-        //TODO: need to update UI for input validation
-        if (!fromCity || !toCity)
-            throw 'Please select from and to cities';
+        var isValid = true;
+        var invalidAnimation = 'animated jello';
 
-        if (fromCity == toCity) {
-            $scope.trips = null;
-            throw 'Please select different from and to cities';
+        if (!fromCity) {
+            $('#fromCitySelect')
+                .addClass(invalidAnimation)
+                .popover({
+                    placement: 'left',
+                    content: 'Please select from city'
+                })
+                .popover('show')
+                .on('click', function(e) {
+                    $(this)
+                        .popover('hide')
+                        .removeClass(invalidAnimation);
+                });
+
+            isValid = false;
         }
+
+        if (!toCity) {
+            $('#toCitySelect')
+                .addClass(invalidAnimation)
+                .popover({
+                    placement:'left',
+                    content:'Please select to city'
+                })
+                .popover('show')
+                .on('click', function(e) {
+                    $(this)
+                        .popover('hide')
+                        .removeClass(invalidAnimation);
+                });
+
+            isValid = false;
+        }
+
+        if (fromCity && toCity && fromCity == toCity) {
+            $scope.trips = null;
+            $('#fromToCityContainer')
+                .addClass(invalidAnimation)
+                .popover({
+                    placement:'left',
+                    content:'Please select different from and to cities'
+                })
+                .popover('show')
+                .on('click', function(e) {
+                    $(this)
+                        .popover('hide')
+                        .removeClass(invalidAnimation);
+                });
+
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     function getUnitTotals(trips) {
