@@ -6,6 +6,12 @@ email: khancodegt@gmail.com
     - Open index.html in a browser (preferably Chrome/Firefox).
 
 2. Important things to note:
+    - This project uses (also contains) these libraries:
+        a. AngularJS 1.5.0
+        b. Bootstrap 3.3.6
+        c. animate.css 3.5.1
+        d. jQuery 2.2.0
+
     - Importing a local json file is restricted by cross browser domain error. To overcome this issue, one would have to run the web app on a local server by using Node.js or another tool. However, for simplicity sake in running this web app without having to create a local server, I inserted the json file data into a javascript file as 'response-json-wrapper.js' and use this js file to import the json data.
 
     - I implemented my own version of Dijkstra's algorithm to find the shortest path (depending on sorting type) from one city to another. Also, I implemented a min-priority queue along with it to get the best efficiency out of Dijkstra's algorithm. These files can be found in assets/js folder.

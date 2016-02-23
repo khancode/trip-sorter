@@ -18,9 +18,7 @@
     <script src="assets/js/min-priority-queue.js"></script>
     <!--<script src="response-json-wrapper.js"></script>-->
     <script src="assets/api_response/response-json-wrapper-corrected.js"></script>
-    <!--<script src="response-json-wrapper-example.js"></script>-->
     <script src="assets/js/shortest-path-finder.js"></script>
-    <!--<script src="api-response.js"></script>-->
     <!-- project -->
     <script src="app/app.js"></script>
 </head>
@@ -42,7 +40,7 @@
                     </select>
                 </div>
                 <div id="sortingTypesContainer" class="list-group">
-                    <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="btn list-group-item sortingTypeButton">{{s}}</button>
+                    <button ng-repeat="s in SORTING_TYPES" ng-click="changeSortingType(s)" type="button" ng-class="{ 'active' : sortingType == s }" class="btn list-group-item" style="text-align: center">{{s}}</button>
                 </div>
                 <div id="searchButtonContainer">
                     <button id="searchButton" ng-click="submitForm()" class="btn btn-success"><span id="searchIcon" class="glyphicon glyphicon-search"></span><span id="searchButtonText">Search</span></button>

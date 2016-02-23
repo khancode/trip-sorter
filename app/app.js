@@ -27,8 +27,8 @@ myApp.controller('mainController', ['$scope', 'SORTING_TYPES', 'apiResponse', 's
     $scope.SORTING_TYPES = SORTING_TYPES;
     $scope.cities = getCities($scope.deals);
     $scope.sortingType = $scope.SORTING_TYPES[0];
-    $scope.fromCity = 'London'; //TODO: remove default value
-    $scope.toCity = 'Athens'; //TODO: remove default value
+    $scope.fromCity;
+    $scope.toCity;
     $scope.trips;
     $scope.unitTotals;
 
